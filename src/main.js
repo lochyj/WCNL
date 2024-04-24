@@ -266,9 +266,13 @@ class UNLE {
                     dy = v.y - u.y;
                 }
 
-                var m = Math.min(UNLE.mag([dx, dy]), 100)
+                var m = Math.max(UNLE.mag([dx, dy]))
 
-                var force = ((1/20)*((m-100)*(m-100)))/500
+                if (m == 0) {
+                    continue
+                }
+
+                var force = (-Math.log10(m)+10)/(UNLE.NodesContainer.children.length*100)
 
                 v.dx += dx*force
                 v.dy += dy*force
